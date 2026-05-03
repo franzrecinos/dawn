@@ -1,0 +1,102 @@
+/*
+ * Nomeo design tokens — Tailwind v4 @theme.
+ *
+ * Brand voice: "nomad lifestyle, bon vivant traveler, family on vacation."
+ * Visual stance: premium-travel-tech, not budget-tech. Deep ink surfaces,
+ * warm cream backgrounds, a single warm-coral accent that does the work
+ * normally split across 3-4 colors. One geometric sans for everything.
+ */
+
+@import 'tailwindcss';
+
+@theme {
+  /* Ink — primary dark surface + text. Cooler than pure black, warmer than pure navy. */
+  --color-ink-50: #eef0f6;
+  --color-ink-100: #d6dae6;
+  --color-ink-200: #adb5cb;
+  --color-ink-300: #7d88a6;
+  --color-ink-400: #515d80;
+  --color-ink-500: #2f3a5b;
+  --color-ink-600: #202a48;
+  --color-ink-700: #161e36;
+  --color-ink-800: #0e1428;
+  --color-ink-900: #0b1020;
+  --color-ink-950: #060916;
+
+  /* Cream — warm off-white. Default page surface, not stark white. */
+  --color-cream-50: #fbf8f3;
+  --color-cream-100: #f6f1e8;
+  --color-cream-200: #ece4d2;
+  --color-cream-300: #ddd0b3;
+  --color-cream-400: #c8b489;
+
+  /* Sun — single warm-coral accent, used sparingly for CTAs and highlights. */
+  --color-sun-50: #fdf3ec;
+  --color-sun-100: #fae0cf;
+  --color-sun-200: #f4bf9d;
+  --color-sun-300: #ed9d6c;
+  --color-sun-400: #e87b3a;
+  --color-sun-500: #d96420;
+  --color-sun-600: #b14e18;
+  --color-sun-700: #893c14;
+  --color-sun-800: #5e2a10;
+  --color-sun-900: #3a1a0a;
+
+  /* Sea — secondary accent for trust/coverage cues (not for CTAs). */
+  --color-sea-50: #ecf5f2;
+  --color-sea-300: #6ba89a;
+  --color-sea-500: #2e7d6b;
+  --color-sea-700: #1f5448;
+
+  /* Surface aliases — semantic names so component CSS doesn't bind to a scale step. */
+  --color-surface: var(--color-cream-50);
+  --color-surface-muted: var(--color-cream-100);
+  --color-surface-inverse: var(--color-ink-900);
+  --color-fg: var(--color-ink-900);
+  --color-fg-muted: var(--color-ink-500);
+  --color-fg-inverse: var(--color-cream-50);
+  --color-accent: var(--color-sun-400);
+  --color-accent-strong: var(--color-sun-500);
+  --color-border: rgb(11 16 32 / 0.08);
+  --color-border-strong: rgb(11 16 32 / 0.16);
+
+  /* Type — single geometric sans, system-stack fallback so the theme renders
+     before Shopify's font_picker resolves. Display sizes get tighter tracking. */
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-sans);
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+
+  --tracking-display: -0.02em;
+  --tracking-tight: -0.01em;
+  --tracking-wide: 0.04em;
+
+  /* Radius — restrained. No "bubbly" look. */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Shadows — ink-tinted, never neutral gray. */
+  --shadow-sm: 0 1px 2px rgb(11 16 32 / 0.06);
+  --shadow-md: 0 8px 24px -8px rgb(11 16 32 / 0.18);
+  --shadow-lg: 0 24px 48px -16px rgb(11 16 32 / 0.24);
+
+  /* Layout */
+  --container-page: 1200px;
+  --container-narrow: 720px;
+}

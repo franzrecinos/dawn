@@ -1,0 +1,126 @@
+.nm-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nm-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-block: 1rem;
+}
+
+.nm-header__brand {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  font-size: var(--text-lg);
+}
+
+.nm-header__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+}
+
+.nm-header__logo {
+  height: 28px;
+  width: auto;
+}
+
+.nm-header__nav {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .nm-header__nav {
+    display: block;
+    flex: 1;
+  }
+}
+
+.nm-header__nav-list {
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.nm-header__nav-list li {
+  list-style: none;
+}
+
+.nm-header__nav-link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-fg-muted);
+  transition: color 150ms ease;
+}
+
+.nm-header__nav-link:hover {
+  color: var(--color-fg);
+}
+
+.nm-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nm-header__cta {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  .nm-header__cta {
+    display: inline-flex;
+  }
+}
+
+.nm-header__cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  color: var(--color-fg);
+  transition: border-color 150ms ease;
+}
+
+.nm-header__cart:hover {
+  border-color: var(--color-border-strong);
+}
+
+.nm-header__cart-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-ink-900);
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nm-header__cart-count:empty,
+.nm-header__cart-count[data-cart-count='0'] {
+  display: none;
+}
