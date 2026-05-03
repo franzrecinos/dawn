@@ -12,16 +12,43 @@ Brand voice: nomad lifestyle / *bon vivant* traveler / family on vacation. Visua
 
 ```sh
 npm install               # one time, installs Vite + Tailwind v4
-npm run watch             # vite build --watch (CSS/JS + Liquid mirror)
-npm run dev               # shopify theme dev — run in a second terminal
+npm run dev               # one-terminal dev — runs vite watch + shopify theme dev (concurrently)
 npm run build             # one-shot production build into assets/ + root
+npm run watch             # vite build --watch only (no Shopify dev server)
 npm run check             # shopify theme check (Liquid lint)
+npm run push:dev          # build + shopify theme push -e development --unpublished
+npm run push:prod         # build + shopify theme push -e production
 npm run clean             # nuke generated root dirs (assets/, sections/, etc.)
 ```
 
-The two long-running processes (`npm run watch` and `npm run dev`) are meant to run side-by-side. Watch mirrors Liquid + recompiles CSS/JS into `assets/`; the Shopify CLI watches the root and uploads to the dev store. There is no unit-test runner. CI (`.github/workflows/ci.yml`) only runs `shopify/theme-check-action` and `shopify/lighthouse-ci-action` (perf budget on home/product/collection).
+`npm run dev` uses `concurrently` to run two long-running processes side-by-side: Vite mirrors Liquid + recompiles CSS/JS into the repo root, and the Shopify CLI watches that root and hot-reloads the dev store. Hit Ctrl+C once and both processes die together (`--kill-others`).
 
-Prettier formats JS (`singleQuote: true`) and Liquid (`singleQuote: false`), `printWidth: 120`. Format-on-save is wired through the VS Code extensions in `.vscode/`.
+### Shopify environments
+
+Stores and theme IDs live in `shopify.theme.toml` (committed) — the `.example` documents every supported field. The `-e <env>` flag selects which environment block to use:
+
+```sh
+shopify theme dev   -e development
+shopify theme push  -e production --allow-live
+```
+
+`development` defaults to `nomeo-dev.myshopify.com`; `production` to `nomeo.myshopify.com`. Update those URLs once the real stores exist.
+
+### Required env vars / GitHub secrets
+
+| Name | Where | What |
+|------|-------|------|
+| `SHOPIFY_CLI_THEME_TOKEN` | local shell + repo secret | Theme Access token. Generate from Shopify admin > Apps > Theme Access > Create password. **Never commit.** |
+| `SHOPIFY_FLAG_STORE`      | repo secret only          | Store URL — only needed in CI when not relying on the toml's `store` field. Optional locally. |
+
+For local dev, export `SHOPIFY_CLI_THEME_TOKEN` once in your shell profile and the CLI picks it up automatically. For CI, both go in repo *Settings → Secrets → Actions*.
+
+### CI / Deploy
+
+- **`.github/workflows/ci.yml`** runs on every push/PR: `setup-node` → `npm ci` → `npm run build` → `theme-check`. The Lighthouse job is gated behind a `LIGHTHOUSE_ENABLED` repo *variable* — set it to `true` once a dev store + the relevant `SHOP_*` secrets exist.
+- **`.github/workflows/deploy.yml`** is `workflow_dispatch` only. Pick `development` or `production` from the UI; production defaults to `--unpublished` (preview-only) and only overwrites the live theme when you tick `allow_live`. Concurrency is keyed per-environment so you can't accidentally launch two prod pushes at once.
+
+There is no unit-test runner. Prettier formats JS (`singleQuote: true`) and Liquid (`singleQuote: false`), `printWidth: 120`. Format-on-save is wired through the VS Code extensions in `.vscode/`.
 
 ## Source-of-truth model — `src/` mirrors to repo root
 
