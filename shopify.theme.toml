@@ -1,0 +1,22 @@
+# Nomeo — Shopify CLI environments.
+# See shopify.theme.toml.example for the full reference + secret-handling notes.
+# Run with `-e <environment>`, e.g. `shopify theme dev -e development`.
+
+[environments.development]
+store = "nomeo-dev.myshopify.com"
+# settings_data.json drifts every time a merchant tweaks the editor. Keep it
+# local-only so dev pulls/pushes don't fight the store.
+ignore = ["config/settings_data.json"]
+nodelete = true
+
+
+[environments.production]
+store = "nomeo.myshopify.com"
+# Pin once the live theme exists. Leave commented to let the CLI prompt.
+# theme = "000000000"
+ignore = ["config/settings_data.json"]
+nodelete = true
+# Uncomment to allow `shopify theme push -e production` to overwrite the
+# published theme. Off by default so deploys default to creating an
+# unpublished copy you can preview before promoting.
+# allow-live = true

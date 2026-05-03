@@ -1,0 +1,65 @@
+# shopify.theme.toml — Shopify CLI environments
+#
+# Copy this file to `shopify.theme.toml` and fill in your store + theme IDs.
+# Once configured, every Shopify CLI command takes `-e <environment>`:
+#
+#   shopify theme dev   -e development
+#   shopify theme push  -e staging --unpublished
+#   shopify theme push  -e production --allow-live
+#   shopify theme check -e development
+#
+# Reference: https://shopify.dev/docs/themes/tools/cli/environments
+#
+# ─── Secrets ──────────────────────────────────────────────────────────────────
+# Do NOT put real Theme Access tokens in `password = "..."` if this file is
+# committed. Prefer the env var route, which the CLI picks up automatically:
+#
+#   export SHOPIFY_CLI_THEME_TOKEN=shptka_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#   export SHOPIFY_FLAG_STORE=my-store.myshopify.com
+#
+# Generate a Theme Access token from the Shopify admin:
+#   Apps > Theme Access > Create password
+# ─────────────────────────────────────────────────────────────────────────────
+
+[environments.development]
+# Your dev store. Trailing `.myshopify.com` is required.
+store = "your-dev-store.myshopify.com"
+
+# Theme ID to sync against. Omit for `shopify theme dev` (it spins up a hot-
+# reload theme on the fly). Required for `theme push` if you want to target a
+# specific theme instead of creating a new one.
+# theme = "123456789"
+
+# Files to never sync. settings_data.json typically diverges between local
+# and the store (merchants edit live), so it's commonly ignored in dev.
+# Shopify CLI only walks known theme directories, so non-theme paths
+# (node_modules/, src/, build/) don't need to be listed here.
+ignore = ["config/settings_data.json"]
+
+# Don't delete remote files that aren't present locally. Safe default for dev.
+nodelete = true
+
+# Optional: Theme Access token. Leave blank and use SHOPIFY_CLI_THEME_TOKEN.
+# password = ""
+
+
+[environments.staging]
+store = "your-staging-store.myshopify.com"
+# Pin to a specific staging theme so `shopify theme push -e staging` always
+# overwrites the same one.
+theme = "123456789"
+# Push as unpublished — staging theme stays accessible only via preview URL.
+unpublished = false
+
+
+[environments.production]
+store = "your-production-store.myshopify.com"
+# The published theme ID. Treat with care.
+theme = "987654321"
+ignore = ["config/settings_data.json"]
+# Refuse to delete remote files not in source — guards against accidentally
+# wiping merchant-uploaded assets.
+nodelete = true
+# Required to push to the live theme. Without this, `theme push` errors out
+# when targeting the published theme — intentional safety rail.
+# allow-live = true
