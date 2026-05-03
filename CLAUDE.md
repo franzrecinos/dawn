@@ -8,6 +8,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Brand voice: nomad lifestyle / *bon vivant* traveler / family on vacation. Visual stance: premium-travel-tech, not budget-tech. Dark ink surfaces, warm cream backgrounds, single warm-coral accent.
 
+The repo is a **loose two-package workspace** (not npm workspaces — yet):
+
+- The Shopify theme lives at the **repo root** (`src/`, build outputs at `assets/`, `sections/`, …).
+- `packages/migrator-cli/` is a separate Node package — an interactive CLI for migrating Shopify entities (metafield definitions, metaobjects, products, …) between dev / staging / production stores, with Tier-1 safeguards baked in. Its full spec, architecture, and the safeguard model live in `packages/migrator-cli/README.md`. Each package has its own `node_modules`; promote to npm workspaces only when there's a third package.
+
 ## Common commands
 
 ```sh

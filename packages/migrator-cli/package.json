@@ -1,0 +1,26 @@
+{
+  "name": "@nomeo/migrator-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Interactive CLI for migrating Shopify entities (metafields, metaobjects, products, …) between dev / staging / production stores. Tier-1 safeguards baked in.",
+  "bin": {
+    "migrator": "./bin/migrator.js"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node bin/migrator.js",
+    "test:smoke": "node bin/migrator.js --help && node bin/migrator.js stores --help"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "@shopify/admin-api-client": "^1.0.5",
+    "cac": "^6.7.14",
+    "picocolors": "^1.1.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "stores": {
+    "dev": {
+      "domain": "nomeo-dev.myshopify.com",
+      "role": "development",
+      "owner": "us"
+    },
+    "staging": {
+      "domain": "nomeo-staging.myshopify.com",
+      "role": "staging",
+      "owner": "us"
+    },
+    "prod": {
+      "domain": "nomeo.myshopify.com",
+      "role": "production",
+      "owner": "us"
+    },
+    "client-acme-dev": {
+      "domain": "acme-dev.myshopify.com",
+      "role": "development",
+      "owner": "client",
+      "crossOwner": false
+    }
+  }
+}
