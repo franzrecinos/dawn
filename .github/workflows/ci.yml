@@ -6,6 +6,14 @@ on:
   pull_request:
     branches: [main]
 
+# Default GITHUB_TOKEN is contents:read only. theme-check-action posts
+# annotations to the run + comments on PRs, which need checks:write and
+# pull-requests:write. Setting these here scopes the token for every job.
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
   build:
     name: Build & Theme Check
