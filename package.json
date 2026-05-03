@@ -1,0 +1,24 @@
+{
+  "name": "nomeo-theme",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Nomeo — travel eSIM Shopify theme. Built on Dawn, restyled with Tailwind v4 + Vite.",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "dev": "concurrently --kill-others --names 'vite,shopify' --prefix-colors 'cyan,magenta' 'npm:watch' 'npm:dev:shopify'",
+    "dev:shopify": "shopify theme dev -e development",
+    "check": "shopify theme check",
+    "push:dev": "npm run build && shopify theme push -e development --unpublished",
+    "push:prod": "npm run build && shopify theme push -e production",
+    "clean": "rm -rf assets layout/theme.liquid layout/password.liquid sections snippets templates config locales"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "concurrently": "^9.1.0",
+    "fast-glob": "^3.3.2",
+    "tailwindcss": "^4.1.0",
+    "vite": "^6.3.0"
+  }
+}

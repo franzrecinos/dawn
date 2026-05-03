@@ -1,0 +1,142 @@
+/*
+ * Nomeo base — site-wide resets, body defaults, and primitives that every
+ * page needs. Loaded once from layout/theme.liquid. Component-scoped styles
+ * live in src/sections/<name>/<name>.css and src/snippets/<name>/<name>.css.
+ */
+
+@import './tokens.css';
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-surface);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: var(--tracking-display);
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  ::selection {
+    background: var(--color-sun-200);
+    color: var(--color-ink-900);
+  }
+
+  .nm-skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--color-fg);
+    color: var(--color-fg-inverse);
+    padding: 0.75rem 1rem;
+    z-index: 100;
+  }
+
+  .nm-skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+}
+
+@layer components {
+  .nm-container {
+    width: 100%;
+    max-width: var(--container-page);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
+  }
+
+  .nm-container--narrow {
+    max-width: var(--container-narrow);
+  }
+
+  .nm-eyebrow {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-fg-muted);
+  }
+
+  .nm-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-tight);
+    transition:
+      transform 150ms ease,
+      background-color 150ms ease,
+      box-shadow 150ms ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .nm-button--primary {
+    background: var(--color-fg);
+    color: var(--color-fg-inverse);
+  }
+
+  .nm-button--primary:hover {
+    background: var(--color-ink-700);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .nm-button--accent {
+    background: var(--color-accent);
+    color: var(--color-ink-900);
+  }
+
+  .nm-button--accent:hover {
+    background: var(--color-accent-strong);
+    color: var(--color-fg-inverse);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .nm-button--ghost {
+    background: transparent;
+    border-color: var(--color-border-strong);
+  }
+
+  .nm-button--ghost:hover {
+    border-color: var(--color-fg);
+  }
+}

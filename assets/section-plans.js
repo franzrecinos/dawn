@@ -1,0 +1,1 @@
+class n extends HTMLElement{constructor(){super(),this.cards=this.querySelectorAll(".nm-plan")}connectedCallback(){this.cards.forEach(e=>{e.addEventListener("mouseenter",()=>e.style.setProperty("--nm-plan-hovered","1")),e.addEventListener("mouseleave",()=>e.style.removeProperty("--nm-plan-hovered"))})}}customElements.get("nm-plan-grid")||customElements.define("nm-plan-grid",n);

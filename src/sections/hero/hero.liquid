@@ -1,0 +1,99 @@
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+
+<section class="nm-hero" data-section-id="{{ section.id }}">
+  <div class="nm-hero__bg" aria-hidden="true">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag: loading: 'eager', widths: '720, 1080, 1440, 1920, 2400', class: 'nm-hero__bg-image'
+      }}
+    {%- endif -%}
+    <div class="nm-hero__bg-veil"></div>
+  </div>
+
+  <div class="nm-container nm-hero__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="nm-eyebrow nm-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <h1 class="nm-hero__title">
+      {{ section.settings.title | default: 'Stay connected, anywhere on Earth.' }}
+    </h1>
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="nm-hero__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <div class="nm-hero__cta-row">
+      {%- if section.settings.primary_label != blank -%}
+        <a class="nm-button nm-button--accent" href="{{ section.settings.primary_link | default: '#plans' }}">
+          {{ section.settings.primary_label }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.secondary_label != blank -%}
+        <a class="nm-button nm-button--ghost" href="{{ section.settings.secondary_link | default: '#how' }}">
+          {{ section.settings.secondary_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="nm-hero__trust" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'trust' -%}
+            <li {{ block.shopify_attributes }} class="nm-hero__trust-item">
+              <span class="nm-hero__trust-dot" aria-hidden="true"></span>
+              {{ block.settings.text }}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Travel eSIMs" },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "Stay connected, anywhere on Earth."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Instant data plans for 150+ countries. Activate in minutes, save more on bundles."
+    },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Browse plans" },
+    { "type": "url", "id": "primary_link", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "How it works" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust line item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "150+ countries" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "trust", "settings": { "text": "150+ countries" } },
+        { "type": "trust", "settings": { "text": "Instant QR delivery" } },
+        { "type": "trust", "settings": { "text": "No roaming fees" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

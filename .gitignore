@@ -8,3 +8,8 @@
 ehthumbs.db
 Thumbs.db
 .shopify
+
+# Node / Vite
+node_modules
+.vite
+*.log

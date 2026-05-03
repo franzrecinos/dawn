@@ -1,0 +1,35 @@
+{{ 'section-placeholder.css' | asset_url | stylesheet_tag }}
+
+<section class="nm-placeholder" data-section-id="{{ section.id }}">
+  <div class="nm-container nm-container--narrow nm-placeholder__inner">
+    <p class="nm-eyebrow">{{ section.settings.eyebrow | default: 'Coming soon' }}</p>
+    <h1 class="nm-placeholder__title">
+      {{ section.settings.title | default: 'This page is being designed.' }}
+    </h1>
+    <p class="nm-placeholder__body">
+      {{
+        section.settings.body
+        | default: 'We are restyling this section. The underlying functionality is in place — the new design lands shortly.'
+      }}
+    </p>
+    {%- if section.settings.cta_label != blank -%}
+      <a class="nm-button nm-button--primary" href="{{ section.settings.cta_link | default: routes.root_url }}">
+        {{ section.settings.cta_label }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Placeholder",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Coming soon" },
+    { "type": "text", "id": "title", "label": "Title", "default": "This page is being designed." },
+    { "type": "textarea", "id": "body", "label": "Body" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Back to home" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" }
+  ],
+  "presets": [{ "name": "Placeholder" }]
+}
+{% endschema %}

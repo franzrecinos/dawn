@@ -1,0 +1,57 @@
+{{ 'section-features.css' | asset_url | stylesheet_tag }}
+
+<section class="nm-features" id="how" data-section-id="{{ section.id }}">
+  <div class="nm-container">
+    <header class="nm-features__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="nm-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="nm-features__title">
+        {{ section.settings.title | default: 'Built for travelers, not telcos.' }}
+      </h2>
+    </header>
+
+    <ul class="nm-features__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'feature' -%}
+          <li {{ block.shopify_attributes }} class="nm-feature">
+            <div class="nm-feature__icon" aria-hidden="true">{{ block.settings.icon | default: '01' }}</div>
+            <h3 class="nm-feature__title">{{ block.settings.title | default: 'Feature' }}</h3>
+            <p class="nm-feature__body">{{ block.settings.body }}</p>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Features",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Nomeo" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Built for travelers, not telcos." }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon / number", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Activate in minutes" },
+        { "type": "textarea", "id": "body", "label": "Body" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "01", "title": "Activate in minutes", "body": "Scan one QR. The eSIM provisions itself before you finish your coffee." } },
+        { "type": "feature", "settings": { "icon": "02", "title": "World coverage", "body": "150+ countries, one account. Add a region as you go — no SIM swaps." } },
+        { "type": "feature", "settings": { "icon": "03", "title": "Bundle and save", "body": "Stack two or more plans and bundle pricing kicks in automatically at checkout." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
